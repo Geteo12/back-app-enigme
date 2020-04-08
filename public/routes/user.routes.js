@@ -1,10 +1,20 @@
+var express = require('express');
+var router = express.Router();
+var userService = require('../services/user.service')
+
 module.exports = app => {
-    const users = require("../controllers/user.controller.js");
+	const user = require("../controllers/user.controller");
   
-    var router = require("express").Router();
+	
+	//router.post("/newUser", user.create);
+	
+	router.post("/newUser", (req, res, next) =>{
+		const body = req.body;
+		const user = user.create(body);
+		console.log("ON ESt DANS LE POST DE USER ROUTES")
+		return res.status(201).json({user : user});
+	});
+	
   
-    // Créer un nouveau collab
-    router.post("localhost:4201/newUser", users.create); //postman
-  
-    app.use("", router);
+	app.use("http://localhost:4200", router);
   };

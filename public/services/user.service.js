@@ -2,11 +2,8 @@ const UserModel = require("../models/user.model");
 const Validator = require ('fastest-validator');
 
 
-let users = {};
-let counter = 0;
-
 /* create an instance of the validator */
-let userValidator = new Validator();
+//let userValidator = new Validator();
 
 /* use the same patterns as on the client to validate the request */
 let namePattern = /([A-Za-z\-\’])*/;
@@ -14,20 +11,20 @@ let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$/;
 
 /* user validator shema */
 const userVSchema = {
-		pseudo: { type: "string", min: 1, max: 50, pattern: namePattern},
 		email: { type: "email", max: 75 },
+		pseudo: { type: "string", min:1, max:5, pattern: namePattern},
 		mdp: { type: "string", min: 2, max: 50, pattern: passwordPattern}
 	};
 
 /* static user service class */
-class userService
+class UserService
 {
 	static create(data)
 	{
-		var vres = userValidator.validate(data, userVSchema);
+		//var vres = userValidator.validate(data) userVSchema);
 		
 		/* validation failed */
-		if(!(vres === true))
+		/*if(!(vres === true))
 		{
 			let errors = {}, item;
 
@@ -42,17 +39,15 @@ class userService
 			    name: "ValidationError",
 			    message: errors
 			};
-		}
+		}*/
+		
+		let user = new UserModel(data.email, data.pseudo, data.mdp);
+		console.log("ON EST DANS LE CREATE DE USER SERVICE VOICI DATA:"+ data+ "ET VOICI USER"+user);
 
-		let user = new userModel(data.email, data.pseudo, data.mdp);
 
 		return user;
 	}
 
-	static update(uid, data)
-	{
-
-	}
 }
 
-module.exports= userService;
+module.exports = UserService;

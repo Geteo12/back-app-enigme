@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../models/");
 const Users = db.users;
 const Op = db.Sequelize.Op;
 
@@ -10,21 +10,21 @@ exports.create = (req, res) => {
       message: "Le contenu ne peut être vide!"
     });
     return;
-  }Users
+  }
 
   if (!req.body.pseudo) {
     res.status(400).send({
       message: "Le contenu ne peut être vide!"
     });
     return;
-  }Users
+  }
 
   if (!req.body.mdp) {
     res.status(400).send({
       message: "Le contenu ne peut être vide!"
     });
     return;
-  }Users
+  }
 
   // Création du User
   const user = {
@@ -37,6 +37,7 @@ exports.create = (req, res) => {
   Users.create(user)
     .then(data => {
       res.send(data);
+      console.log("ON EST DANS LE CONTROLLER");
     })
     .catch(err => {
       res.status(500).send({

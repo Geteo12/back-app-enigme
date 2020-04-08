@@ -11,6 +11,7 @@
         "test": "mocha --recursive tests"
     },
     "dependencies": {
+        "cookie-parser": "^1.4.5",
         "cors": "^2.8.5",
         "express": "^4.17.1",
         "fastest-validator": "^1.2.0",

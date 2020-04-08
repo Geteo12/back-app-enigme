@@ -1,15 +1,12 @@
-module.exports = (sequelize, Sequelize) => {
-    const Users = sequelize.define("users", {
-      email: {
-        type: Sequelize.STRING
-      },
-      pseudo: {
-        type: Sequelize.STRING
-      },
-      mdp: {
-        type: Sequelize.STRING
-      }
-    });
-  
-    return Users;
-  };
+class UserModel
+{
+    constructor(email, pseudo, mdp){
+        this.email = email;
+        this.pseudo = pseudo;
+        this.mdp = mdp;
+    }
+
+
+}
+
+module.exports = UserModel;

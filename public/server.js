@@ -7,7 +7,7 @@ const userService = require("../public/services/user.service")
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:4200"
+  origin: "http://localhost:4201"
 };
 
 app.use(cors(corsOptions));
@@ -34,9 +34,12 @@ app.get("/", (req, res) => {
 app.post("/newUser", (req, res, next) =>{
   const body = req.body;
 
+  console.log("ON EST DANS LE APP.POST DU SERVER VOICI REQ"+req+" ET VOICI BODY :"+body)
+
   const user = userService.create(body);
 
   return res.status(201).json({ user : user });
+  
 });
 
 require("./routes/user.routes")(app);

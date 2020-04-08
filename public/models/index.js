@@ -1,6 +1,7 @@
 const dbConfig = require("../config/db.config.js");
 
 const Sequelize = require("sequelize");
+
 const sequelize = new Sequelize("db_app_enigme", "root", "root", {
   host: "localhost",
   dialect: "mysql",
@@ -18,6 +19,6 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.users = require("./user.model.js")(sequelize, Sequelize);
+db.users = require("./user.model.sequelize")(sequelize, Sequelize);
 
 module.exports = db;
