@@ -55,7 +55,6 @@ module.exports = {
             return res.status(400).json({'error': 'missing parameters'});
         }
         models.Compte.findOne({
-            attributes: ['email'],
             where: {email: email}
         }).then(function(userfound: any){
             if(userfound){
