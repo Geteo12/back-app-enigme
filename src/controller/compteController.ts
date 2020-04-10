@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 
+const jwtUtils = require('../../utils/jwtUtils');
 const models = require('../../models');
 
 module.exports = {
@@ -48,5 +48,32 @@ module.exports = {
 },
     login: function(req: Request, res: Response){
         
+        let email: string = req.body.email;
+        let mdp: string = req.body.mdp;
+
+        if(email == null || mdp == null){
+            return res.status(400).json({'error': 'missing parameters'});
+        }
+        models.Compte.findOne({
+            attributes: ['email'],
+            where: {email: email}
+        }).then(function(userfound: any){
+            if(userfound){
+                bcrypt.compare(mdp, userfound.mdp, function(errBycrypt, resBycrypt){
+                    if(resBycrypt){
+                        return res.status(200).json({
+                            'id': userfound.id,
+                            'token': jwtUtils.generateTokenForUser(userfound)
+                        });
+                    }
+                    else{
+                        return res.status(403).json({'error': 'invalid password ' + userfound.mdp + ' ' + userfound.pseudo + ' ' + userfound.bcryptedPassword});
+                    }
+                })
+
+            }else{
+                return res.status(404).json({'error': 'user not exist in DB' });
+            }
+        });
     }
 }
