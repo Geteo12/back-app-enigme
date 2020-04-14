@@ -18,7 +18,7 @@ phases:
     commands:
       # Use AWS SAM to package the application by using AWS CloudFormation
       - aws s3 cp --recursive src/ s3://$WEBSITE_S3_BUCKET/src/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-      - sed -i -e "s|assets/|$WEBSITE_S3_PREFIX/src/assets/|g" src/server.ts
+      - sed -i -e "s|assets/|$WEBSITE_S3_PREFIX/src/assets/|g" dist/server.js
       - aws cloudformation package --template template.yml --s3-bucket $S3_BUCKET --output-template template-export.yml
   post_build:
     commands:
