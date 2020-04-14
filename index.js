@@ -1,15 +1,8 @@
-'use strict';
-
-var fs = require('fs');
-var path = require('path');
-
-exports.get = function(event, context, callback) {
-  var contents = fs.readFileSync(`dist/server.js`);
-  var result = {
-    statusCode: 200,
-    body: contents.toString(),
-    headers: {'content-type': 'text/html'}
-  };
-
-  callback(null, result);
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+const serverConfig_1 = __importDefault(require("./dist/serverConfig"));
+const server = new serverConfig_1.default(3000);
+server.start();
