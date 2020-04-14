@@ -16,6 +16,18 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
+      reponse: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      dateDebut: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      dateFin: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

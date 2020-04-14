@@ -2,7 +2,10 @@
 module.exports = (sequelize, DataTypes) => {
   const Enigme = sequelize.define('Enigme', {
     intitule: DataTypes.STRING,
-    points: DataTypes.INTEGER
+    points: DataTypes.INTEGER,
+    reponse: DataTypes.STRING,
+    dateDebut: DataTypes.DATE,
+    dateFin: DataTypes.DATE
   }, {
     freezeTableName: true, // Freeze du nom de la table
   });
