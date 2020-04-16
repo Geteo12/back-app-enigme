@@ -3,6 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 const compteController = require('./controller/compteController');
+const apiRouter = require('./apiRouter');
 
 export default class serverConfig {
 
@@ -23,10 +24,9 @@ export default class serverConfig {
             res.send('Serveur NODE EnigmA');
         })
 
-        // les routes  en local : localhost:3000/register
-        app.route("/register/").post(compteController.register);
-        // les routes  en local localhost:3000/login
-        app.route("/login/").post(compteController.login);
+        app.post('/register', apiRouter);
+        app.post('/login', apiRouter);
+
 
         app.listen(this.port, function(){
             console.log('Serveur démarré');

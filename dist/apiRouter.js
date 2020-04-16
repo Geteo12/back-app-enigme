@@ -4,10 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const compteController_1 = __importDefault(require("./controller/compteController"));
-exports.router = (function () {
-    const apiRouter = express_1.default.Router();
-    apiRouter.route("/register/").post(compteController_1.default.register);
-    apiRouter.route("/login/").post(compteController_1.default.login);
-    return apiRouter;
-})();
+const compteController = require("./controller/compteController");
+let apiRouter = express_1.default.Router();
+apiRouter.use(function timeLog(req, res, next) {
+    console.log('Time: ', Date.now());
+    next();
+});
+apiRouter.route("/register/").post(compteController.register);
+apiRouter.route("/login/").post(compteController.login);
+module.exports = apiRouter;
