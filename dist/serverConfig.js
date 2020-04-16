@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const compteController = require('./controller/compteController');
+const apiRouter = require('./apiRouter');
 class serverConfig {
     constructor(port) {
         this.port = port;
@@ -17,10 +18,8 @@ class serverConfig {
         app.get('/', function (req, res) {
             res.send('Serveur NODE EnigmA');
         });
-        // les routes  en local : localhost:3000/register
-        app.route("/register/").post(compteController.register);
-        // les routes  en local localhost:3000/login
-        app.route("/login/").post(compteController.login);
+        app.post('/register', apiRouter);
+        app.post('/login', apiRouter);
         app.listen(this.port, function () {
             console.log('Serveur démarré');
         });
