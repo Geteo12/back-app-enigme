@@ -94,6 +94,37 @@ module.exports = {
           .catch(function (err:any) {
             res.send('error: ' + err);
           })
-      }
+      },
+
+      getIndice : function (req: Request, res : Response){
+      let indice = new models.Indice();
+      models.Indice.findAll({ //findOne
+          where: {
+            idEnigme: '1'
+          }
+      })
+      .then(function(indiceFound : any){
+          if(indiceFound){
+              //res.json(indiceFound);
+              res.send(indiceFound);
+          } else {
+              res.send("Aucun indice n'est disponible.");
+          }
+      })
+      .catch(function (err:any){
+          res.send('error: ' +err)
+      })
+    }
+
+/*import { DatePipe } from '@angular/common'
+...
+constructor(public datepipe: DatePipe){}
+...
+myFunction(){
+ this.date=new Date();
+ let latest_date =this.datepipe.transform(this.date, 'yyyy-MM-dd');
+}
+*/
+    
 
 }

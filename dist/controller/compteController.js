@@ -85,5 +85,25 @@ module.exports = {
             .catch(function (err) {
             res.send('error: ' + err);
         });
+    },
+    getIndice: function (req, res) {
+        let indice = new models.Indice();
+        models.Indice.findAll({
+            where: {
+                idEnigme: '1'
+            }
+        })
+            .then(function (indiceFound) {
+            if (indiceFound) {
+                //res.json(indiceFound);
+                res.send(indiceFound);
+            }
+            else {
+                res.send("Aucun indice n'est disponible.");
+            }
+        })
+            .catch(function (err) {
+            res.send('error: ' + err);
+        });
     }
 };

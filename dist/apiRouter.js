@@ -13,4 +13,5 @@ apiRouter.use(function timeLog(req, res, next) {
 apiRouter.route("/register/").post(compteController.register);
 apiRouter.route("/login/").post(compteController.login);
 apiRouter.route("/enigme/").get(compteController.getEnigme);
+apiRouter.route("/indice").get(compteController.getIndice);
 module.exports = apiRouter;

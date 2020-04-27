@@ -25,6 +25,7 @@ export default class serverConfig {
         })
 
         app.get('/enigme', apiRouter);
+        app.get('/indice', apiRouter);
 
         app.post('/register', apiRouter);
         app.post('/login', apiRouter);
