@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
+import { ModelScopeOptions } from "sequelize";
 
 const jwtUtils = require('../../utils/jwtUtils');
 const models = require('../../models');
@@ -74,5 +75,56 @@ module.exports = {
                 return res.status(404).json({'error': 'user not exist in DB' });
             }
         });
+    },
+
+    getEnigme : function (req: Request, res : Response){    
+        let enigme = new models.Enigme();    
+        models.Enigme.findOne({
+          where: {
+            id: '1'
+          }
+        }) 
+          .then(function(enigmeFound: any){
+            if (enigmeFound) {
+              res.json(enigmeFound);
+            } else {
+              res.send("L'enigme n'existe pas");
+            }
+          })
+          .catch(function (err:any) {
+            res.send('error: ' + err);
+          })
+      },
+
+      getIndice : function (req: Request, res : Response){
+      let indice = new models.Indice();
+      models.Indice.findAll({ //findOne
+          where: {
+            idEnigme: '1'
+          }
+      })
+      .then(function(indiceFound : any){
+          if(indiceFound){
+              //res.json(indiceFound);
+              res.send(indiceFound);
+          } else {
+              res.send("Aucun indice n'est disponible.");
+          }
+      })
+      .catch(function (err:any){
+          res.send('error: ' +err)
+      })
     }
+
+/*import { DatePipe } from '@angular/common'
+...
+constructor(public datepipe: DatePipe){}
+...
+myFunction(){
+ this.date=new Date();
+ let latest_date =this.datepipe.transform(this.date, 'yyyy-MM-dd');
+}
+*/
+    
+
 }

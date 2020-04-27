@@ -66,5 +66,44 @@ module.exports = {
                 return res.status(404).json({ 'error': 'user not exist in DB' });
             }
         });
+    },
+    getEnigme: function (req, res) {
+        let enigme = new models.Enigme();
+        models.Enigme.findOne({
+            where: {
+                id: '1'
+            }
+        })
+            .then(function (enigmeFound) {
+            if (enigmeFound) {
+                res.json(enigmeFound);
+            }
+            else {
+                res.send("L'enigme n'existe pas");
+            }
+        })
+            .catch(function (err) {
+            res.send('error: ' + err);
+        });
+    },
+    getIndice: function (req, res) {
+        let indice = new models.Indice();
+        models.Indice.findAll({
+            where: {
+                idEnigme: '1'
+            }
+        })
+            .then(function (indiceFound) {
+            if (indiceFound) {
+                //res.json(indiceFound);
+                res.send(indiceFound);
+            }
+            else {
+                res.send("Aucun indice n'est disponible.");
+            }
+        })
+            .catch(function (err) {
+            res.send('error: ' + err);
+        });
     }
 };
