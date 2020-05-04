@@ -17,5 +17,4 @@ apiRouter.route("/modifUtilisateur").put(compteController.updateUser);
 apiRouter.route("/modifMdp").put(compteController.updateMdp);
 apiRouter.route("/enigme/").get(compteController.getEnigme);
 apiRouter.route("/indice").get(compteController.getIndice);
-
 module.exports = apiRouter;

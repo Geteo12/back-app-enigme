@@ -141,7 +141,7 @@ module.exports = {
               })
         })
 
-    }
+    },
 
 
     getEnigme : function (req: Request, res : Response){    
