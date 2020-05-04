@@ -67,6 +67,24 @@ module.exports = {
             }
         });
     },
+  
+    getUser: function (req, res) {
+        let user = new models.Compte;
+        models.Compte.findOne({
+            where: {
+                email: 'aa'
+            }
+        })
+            .then(function (userFound) {
+            if (userFound) {
+                res.json(userFound);
+            }
+            else {
+                res.send("Le compte n'existe pas");
+            }
+        });
+     },
+
     getEnigme: function (req, res) {
         let enigme = new models.Enigme();
         models.Enigme.findOne({
@@ -86,6 +104,25 @@ module.exports = {
             res.send('error: ' + err);
         });
     },
+
+    updateUser: function (req, res) {
+        const email = req.params.email;
+        models.Compte.update(req.body, {
+            where: { email: "aa" }
+        })
+            .then((num) => {
+            if (num == 1) {
+                res.send({
+                    message: "Compte mis-à-jour avec succés!"
+                });
+            }
+            else {
+                res.send({
+                    message: "Echec de la mise-à-jour, le body est peut-etre vide. "
+                });
+            });
+        },
+
     getIndice: function (req, res) {
         let indice = new models.Indice();
         models.Indice.findAll({
@@ -95,7 +132,6 @@ module.exports = {
         })
             .then(function (indiceFound) {
             if (indiceFound) {
-                //res.json(indiceFound);
                 res.send(indiceFound);
             }
             else {
@@ -104,6 +140,29 @@ module.exports = {
         })
             .catch(function (err) {
             res.send('error: ' + err);
+        });
+    },
+    updateMdp: function (req, res) {
+        const mdp = req.params.mdp;
+        bcrypt_1.default.hash(mdp, 5, function (err, bcryptedPassword) {
+            req.body.mdp = bcryptedPassword;
+            models.Compte.update(req.body, {
+                where: { email: "aa" }
+            }).then((num) => {
+                if (num == 1) {
+                    res.send({
+                        message: "Compte mis-à-jour avec succés!"
+                    });
+                }
+                else {
+                    res.send({
+                        message: "Echec de la mise-à-jour, le body est peut-etre vide. "
+                    });
+                }
+            })
+                .catch(function (err) {
+                res.send('error: ' + err);
+            });
         });
     }
 };

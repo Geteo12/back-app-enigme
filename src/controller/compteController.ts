@@ -77,6 +77,73 @@ module.exports = {
         });
     },
 
+
+    getUser: function(req: Request, res: Response){
+        let user = new models.Compte;
+        models.Compte.findOne({
+            where: {
+              email: 'aa'
+            }
+          }) 
+            .then(function(userFound: any){
+              if (userFound) {
+                res.json(userFound);
+              } else {
+                res.send("Le compte n'existe pas");
+              }
+            })
+            .catch(function (err:any) {
+              res.send('error: ' + err);
+            })
+        },
+
+    updateUser: function(req: Request, res: Response){
+        const email = req.params.email;
+        models.Compte.update(req.body, {
+            where: {email : "aa"}
+        })
+        .then((num: number) => {
+            if(num == 1){
+                res.send({
+                    message: "Compte mis-à-jour avec succés!"
+                });
+            }else{
+                res.send({
+                    message: "Echec de la mise-à-jour, le body est peut-etre vide. "
+                });
+            }
+        })
+        .catch(function (err:any) {
+            res.send('error: ' + err);
+          })
+    },
+
+    updateMdp: function(req: Request, res: Response){
+        const mdp = req.params.mdp
+        bcrypt.hash(mdp, 5, function(err: any, bcryptedPassword: any){
+            req.body.mdp = bcryptedPassword
+            models.Compte.update(req.body, {
+                where: { email: "aa" }
+                
+            }).then((num: number) => {
+                if(num == 1){
+                    res.send({
+                        message: "Compte mis-à-jour avec succés!"
+                    });
+                }else{
+                    res.send({
+                        message: "Echec de la mise-à-jour, le body est peut-etre vide. "
+                    });
+                }
+            })
+            .catch(function (err:any) {
+                res.send('error: ' + err);
+              })
+        })
+
+    }
+
+
     getEnigme : function (req: Request, res : Response){    
         let enigme = new models.Enigme();    
         models.Enigme.findOne({
@@ -116,15 +183,5 @@ module.exports = {
       })
     }
 
-/*import { DatePipe } from '@angular/common'
-...
-constructor(public datepipe: DatePipe){}
-...
-myFunction(){
- this.date=new Date();
- let latest_date =this.datepipe.transform(this.date, 'yyyy-MM-dd');
-}
-*/
-    
 
 }

@@ -29,6 +29,9 @@ export default class serverConfig {
 
         app.post('/register', apiRouter);
         app.post('/login', apiRouter);
+        app.get("/monCompte", apiRouter);
+        app.put("/modifUtilisateur", apiRouter);
+        app.put("/modifMdp", apiRouter);
 
 
         app.listen(this.port, function(){
