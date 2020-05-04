@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     points: DataTypes.INTEGER,
     reponse: DataTypes.STRING,
     dateDebut: DataTypes.DATE,
-    dateFin: DataTypes.DATE
+    dateFin: DataTypes.DATE,
+    description: DataTypes.STRING
   }, {
     freezeTableName: true, // Freeze du nom de la table
   });

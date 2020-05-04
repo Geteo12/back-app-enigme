@@ -67,6 +67,7 @@ module.exports = {
             }
         });
     },
+  
     getUser: function (req, res) {
         let user = new models.Compte;
         models.Compte.findOne({
@@ -81,11 +82,29 @@ module.exports = {
             else {
                 res.send("Le compte n'existe pas");
             }
+        });
+     },
+
+    getEnigme: function (req, res) {
+        let enigme = new models.Enigme();
+        models.Enigme.findOne({
+            where: {
+                id: '1'
+            }
+        })
+            .then(function (enigmeFound) {
+            if (enigmeFound) {
+                res.json(enigmeFound);
+            }
+            else {
+                res.send("L'enigme n'existe pas");
+            }
         })
             .catch(function (err) {
             res.send('error: ' + err);
         });
     },
+
     updateUser: function (req, res) {
         const email = req.params.email;
         models.Compte.update(req.body, {
@@ -101,6 +120,22 @@ module.exports = {
                 res.send({
                     message: "Echec de la mise-à-jour, le body est peut-etre vide. "
                 });
+            });
+        },
+
+    getIndice: function (req, res) {
+        let indice = new models.Indice();
+        models.Indice.findAll({
+            where: {
+                idEnigme: '1'
+            }
+        })
+            .then(function (indiceFound) {
+            if (indiceFound) {
+                res.send(indiceFound);
+            }
+            else {
+                res.send("Aucun indice n'est disponible.");
             }
         })
             .catch(function (err) {

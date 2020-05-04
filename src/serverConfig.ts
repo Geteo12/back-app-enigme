@@ -24,6 +24,9 @@ export default class serverConfig {
             res.send('Serveur NODE EnigmA');
         })
 
+        app.get('/enigme', apiRouter);
+        app.get('/indice', apiRouter);
+
         app.post('/register', apiRouter);
         app.post('/login', apiRouter);
         app.get("/monCompte", apiRouter);
